@@ -1,10 +1,8 @@
 package com.example.padilla
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.text.TextUtils
-import android.view.KeyEvent
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -16,13 +14,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.firestore
 
-class actividad_registro : AppCompatActivity(),View.OnClickListener {
+class RegistroUsuario : AppCompatActivity(),View.OnClickListener {
     private lateinit var txtNombre: EditText
     private lateinit var txtCorreo: EditText
     private lateinit var txtContraseña: EditText
@@ -31,8 +26,10 @@ class actividad_registro : AppCompatActivity(),View.OnClickListener {
     private lateinit var radioMujer: RadioButton
     private lateinit var BtnRegistrar: Button
     private lateinit var msgToast: Toast
-    private lateinit var auth: FirebaseAuth;
     private lateinit var db:FirebaseFirestore
+    companion object {
+        private const val TAG = "RegistroUsuario"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,23 +112,39 @@ class actividad_registro : AppCompatActivity(),View.OnClickListener {
         return contraseña == confContraseña
     }
 
-    private fun registrar(){
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(txtCorreo.text.toString(),txtConfContraseña.text.toString())
-            .addOnCompleteListener{
-                if(!it.isSuccessful){
-                    showAlert("Revisa los datos")
+    private fun registrar() {
+        val correo = txtCorreo.text.toString()
+        val contraseña = txtConfContraseña.text.toString()
+        val nombre = txtNombre.text.toString()
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(correo, contraseña)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "Registro exitoso")
+
+                    val mAuth = FirebaseAuth.getInstance()
+                    val currentUser = mAuth.currentUser
+                    val userEmail = correo
+                    val userName = nombre
+
+                    if (currentUser != null) {
+                        db.collection("Users").document(currentUser.uid).set(
+                            hashMapOf(
+                                "Email" to userEmail,
+                                "Ahorro" to 0,
+                                "Meta" to 0,
+                                "Name" to userName,
+                                "Sexo" to if (radioHombre.isChecked) "Hombre" else "Mujer"
+                            )
+                        )
+                    } else {
+                        showAlert("Revisa los datos")
+                    }
                 }
             }
-
-        db.collection("Users").document(txtCorreo.text.toString()).set(
-            hashMapOf("Email" to txtCorreo.text.toString(),
-                        "Ahorro" to 0,
-                        "Meta" to 0
-            )
-
-        )
-
     }
+
+
+
 
     private fun showAlert(msg:String){
         val builder = AlertDialog.Builder(this)
@@ -141,8 +154,5 @@ class actividad_registro : AppCompatActivity(),View.OnClickListener {
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
-
-
-
 
 }

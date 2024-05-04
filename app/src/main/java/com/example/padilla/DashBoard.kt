@@ -3,7 +3,6 @@ package com.example.padilla
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
-import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -13,17 +12,13 @@ import androidx.navigation.ui.AppBarConfiguration.Builder
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.padilla.databinding.ActividadDashboardBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.auth.User
 
-class actividad_dashboard : AppCompatActivity() {
+class DashBoard : AppCompatActivity() {
     private lateinit var txtMeta: TextView
     private var binding: ActividadDashboardBinding? = null
     private lateinit var db: FirebaseFirestore
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +44,7 @@ class actividad_dashboard : AppCompatActivity() {
                 FirebaseAuth.getInstance().signOut()
                 val intent = Intent(this, actividad_login::class.java)
                 startActivity(intent)
-                finish() // Cerrar la actividad actual
+                finish()
             }
             builder.setNegativeButton("Cancelar") { dialog, which ->
                 dialog.dismiss()
@@ -61,18 +56,20 @@ class actividad_dashboard : AppCompatActivity() {
     }
 
     private fun init() {
-        txtMeta = findViewById(R.id.textMeta) ?: return
+        txtMeta = findViewById(R.id.Barra) ?: return
         val mAuth = FirebaseAuth.getInstance()
         val currentUser = mAuth.currentUser
         db = FirebaseFirestore.getInstance()
         val userEmail = currentUser?.email
         if (userEmail != null) {
-            db.collection("Users").document(userEmail).get().addOnSuccessListener {
-                txtMeta.text = it.get("Email") as String?
+            db.collection("Users").document(currentUser.uid).get().addOnSuccessListener {
+                val userNameString = it.get("Name") as String?
+                val formattedName = txtMeta.text.toString() +" " + userNameString
+                txtMeta.text = formattedName
+
             }
         }
     }
-
 
     private fun showAlert(msg:String){
         val builder = AlertDialog.Builder(this)

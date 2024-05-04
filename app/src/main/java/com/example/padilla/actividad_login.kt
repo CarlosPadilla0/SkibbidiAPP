@@ -1,7 +1,5 @@
 package com.example.padilla
 
-import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
@@ -48,8 +46,7 @@ class actividad_login : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         if (v== btnRegistrarse){
-            val intent = Intent(this, actividad_registro::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            val intent = Intent(this, RegistroUsuario::class.java)
             startActivity(intent)
             return
         }
@@ -77,7 +74,7 @@ class actividad_login : AppCompatActivity(), View.OnClickListener {
             .signInWithEmailAndPassword(txtCorreo.text.toString(), txtPassword.text.toString())
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val intent = Intent(this, actividad_dashboard::class.java)
+                    val intent = Intent(this, DashBoard::class.java)
                     startActivity(intent)
                     txtCorreo.text.clear()
                     txtPassword.text.clear()
