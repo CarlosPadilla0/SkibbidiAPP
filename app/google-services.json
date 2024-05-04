@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "357385073498",
+    "project_id": "skibiddiapp",
+    "storage_bucket": "skibiddiapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357385073498:android:cc94f6a60a3560c99c3963",
+        "android_client_info": {
+          "package_name": "com.example.padilla"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCugBpmLk8jTAQVsIXrc0sqG3sSK4gvwVc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
