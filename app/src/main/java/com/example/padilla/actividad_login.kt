@@ -6,7 +6,6 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -32,10 +31,10 @@ class actividad_login : AppCompatActivity(), View.OnClickListener {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-         init()
+        init()
     }
 
-    private fun init(){
+    private fun init() {
         txtCorreo = findViewById(R.id.inputCorreoInicio)
         txtPassword = findViewById(R.id.inputContraseñaInicio)
         btnIniciarSesion = findViewById(R.id.btnIniciarSesionInicio)
@@ -45,16 +44,16 @@ class actividad_login : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-        if (v== btnRegistrarse){
+        if (v == btnRegistrarse) {
             val intent = Intent(this, RegistroUsuario::class.java)
             startActivity(intent)
             return
         }
-        if (v==btnIniciarSesion) {
+        if (v == btnIniciarSesion) {
             if (validate()) {
                 singIn()
             } else {
-                showAlert( "verifica los datos")
+                showAlert("verifica los datos")
             }
         }
     }
@@ -85,11 +84,11 @@ class actividad_login : AppCompatActivity(), View.OnClickListener {
             }
     }
 
-    private fun showAlert(msg:String){
+    private fun showAlert(msg: String) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
         builder.setMessage(msg)
-        builder.setPositiveButton("Aceptar",null)
+        builder.setPositiveButton("Aceptar", null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }

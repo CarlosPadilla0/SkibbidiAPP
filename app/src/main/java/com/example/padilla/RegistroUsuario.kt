@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class RegistroUsuario : AppCompatActivity(),View.OnClickListener {
+class RegistroUsuario : AppCompatActivity(), View.OnClickListener {
     private lateinit var txtNombre: EditText
     private lateinit var txtCorreo: EditText
     private lateinit var txtContraseña: EditText
@@ -26,7 +26,8 @@ class RegistroUsuario : AppCompatActivity(),View.OnClickListener {
     private lateinit var radioMujer: RadioButton
     private lateinit var BtnRegistrar: Button
     private lateinit var msgToast: Toast
-    private lateinit var db:FirebaseFirestore
+    private lateinit var db: FirebaseFirestore
+
     companion object {
         private const val TAG = "RegistroUsuario"
     }
@@ -63,20 +64,20 @@ class RegistroUsuario : AppCompatActivity(),View.OnClickListener {
         BtnRegistrar.setOnClickListener(this)
 
         msgToast = Toast.makeText(this, "", Toast.LENGTH_LONG)
-        db= FirebaseFirestore.getInstance()
+        db = FirebaseFirestore.getInstance()
     }
 
     override fun onClick(v: View) {
 
-        if (v == BtnRegistrar){
+        if (v == BtnRegistrar) {
 
-            if (!validate()){
+            if (!validate()) {
                 msgToast.setText("Faltan campos por seleccionar")
                 msgToast.show()
                 return
 
             }
-            if(!validate2()){
+            if (!validate2()) {
                 msgToast.setText("Las Contraseñas no son iguales")
                 msgToast.show()
                 return
@@ -92,7 +93,6 @@ class RegistroUsuario : AppCompatActivity(),View.OnClickListener {
             radioHombre.clearFocus()
             radioMujer.clearFocus()
         }
-
 
 
     }
@@ -145,13 +145,11 @@ class RegistroUsuario : AppCompatActivity(),View.OnClickListener {
     }
 
 
-
-
-    private fun showAlert(msg:String){
+    private fun showAlert(msg: String) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
         builder.setMessage(msg)
-        builder.setPositiveButton("Aceptar",null)
+        builder.setPositiveButton("Aceptar", null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }

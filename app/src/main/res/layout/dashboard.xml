@@ -131,4 +131,53 @@
         app:layout_constraintTop_toBottomOf="@+id/Barra"
         app:layout_constraintVertical_bias="0.176" />
 
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/fab_menu"
+        android:layout_width="100dp"
+        android:layout_height="300dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        app:fab_expandDirection="up"
+        app:fab_labelStyle="@style/LabelStyle"
+        app:fab_labelsPosition="left"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_modificar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="mini"
+            app:fab_colorNormal="#FFF"
+            app:fab_title="Modificar Meta"
+            app:fab_icon="@drawable/baseline_create_24"
+            />
+
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_Tarjeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="mini"
+            app:fab_colorNormal="#FFF"
+            app:fab_title="Agregar Tarjeta"
+            app:fab_icon="@drawable/baseline_add_card_24"
+            />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_Agregar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="mini"
+            app:fab_colorNormal="#FFF"
+            app:fab_title="Agregar Transaccion"
+            app:fab_icon="@drawable/baseline_add_circle_outline_24"
+            />
+
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
