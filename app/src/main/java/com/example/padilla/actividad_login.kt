@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -41,7 +42,6 @@ class actividad_login : AppCompatActivity(), View.OnClickListener {
         btnRegistrarse = findViewById(R.id.btnRegistrarseInicio)
         btnRegistrarse.setOnClickListener(this)
         btnIniciarSesion.setOnClickListener(this)
-        msgToast = Toast.makeText(this, "", Toast.LENGTH_LONG)
     }
 
     override fun onClick(v: View) {

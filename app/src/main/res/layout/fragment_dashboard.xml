@@ -8,6 +8,83 @@
     tools:context=".ui.dashboard.DashboardFragment">
 
     <TextView
+        android:id="@+id/Fondo"
+        android:layout_width="411dp"
+        android:layout_height="147dp"
+        android:background="#3F51B5"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:textColor="@color/color_white"
+        android:textDirection="firstStrong"
+        android:textSize="34sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.135" />
+
+    <TextView
+        android:id="@+id/TxtMeta"
+        android:layout_width="192dp"
+        android:layout_height="30dp"
+        android:text=""
+        android:textColor="@color/color_white"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.972"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Barra"
+        app:layout_constraintVertical_bias="0.176" />
+
+    <TextView
+        android:id="@+id/TxtAhorro"
+        android:layout_width="192dp"
+        android:layout_height="30dp"
+        android:text=""
+        android:textColor="@color/color_white"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.968"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Barra"
+        app:layout_constraintVertical_bias="0.104" />
+
+    <TextView
+        android:id="@+id/TxtGastos"
+        android:layout_width="192dp"
+        android:layout_height="30dp"
+        android:text=""
+        android:textColor="@color/color_white"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.968"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Barra"
+        app:layout_constraintVertical_bias="0.03" />
+
+    <TextView
+        android:layout_width="178dp"
+        android:layout_height="31dp"
+        android:text="Ahorro Mensual:"
+        android:textColor="@color/color_white"
+        android:textSize="21sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Barra"
+        app:layout_constraintVertical_bias="0.103" />
+
+    <TextView
         android:id="@+id/Barra"
         android:layout_width="0dp"
         android:layout_height="69dp"
@@ -21,31 +98,37 @@
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.003" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:layout_width="357dp"
-        android:layout_height="36dp"
+        android:layout_width="185dp"
+        android:layout_height="32dp"
         android:text="Gastos mensuales:"
-        android:textSize="21dp"
+        android:textColor="@color/color_white"
+        android:textSize="21sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Barra"
-        app:layout_constraintVertical_bias="0.036" />
+        app:layout_constraintVertical_bias="0.03" />
 
     <TextView
-        android:layout_width="357dp"
-        android:layout_height="36dp"
+        android:layout_width="167dp"
+        android:layout_height="30dp"
         android:text="Meta Mensual:"
-        android:textSize="21dp"
+        android:textColor="@color/color_white"
+        android:textSize="21sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.065"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Barra"
-        app:layout_constraintVertical_bias="0.118" />
+        app:layout_constraintVertical_bias="0.176" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

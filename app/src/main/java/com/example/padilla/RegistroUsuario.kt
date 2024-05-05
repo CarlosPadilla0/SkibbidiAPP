@@ -132,6 +132,7 @@ class RegistroUsuario : AppCompatActivity(),View.OnClickListener {
                                 "Email" to userEmail,
                                 "Ahorro" to 0,
                                 "Meta" to 0,
+                                "Gastos" to 0,
                                 "Name" to userName,
                                 "Sexo" to if (radioHombre.isChecked) "Hombre" else "Mujer"
                             )

@@ -16,24 +16,27 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class DashBoard : AppCompatActivity() {
+    private lateinit var txtBarra: TextView
+    private lateinit var txtAhorro: TextView
     private lateinit var txtMeta: TextView
+    private lateinit var txtGastos: TextView
     private var binding: ActividadDashboardBinding? = null
     private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActividadDashboardBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
 
         val navView = findViewById<BottomNavigationView>(R.id.nav_view)
         val appBarConfiguration: AppBarConfiguration = Builder(
             R.id.navigation_dashboard, R.id.navigation_home, R.id.navigation_notifications
-        )
-            .build()
+        ).build()
+
         val navController = findNavController(this, R.id.nav_host_fragment_actividad_dashboard)
         setupWithNavController(binding!!.navView, navController)
         init()
+
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -56,7 +59,10 @@ class DashBoard : AppCompatActivity() {
     }
 
     private fun init() {
-        txtMeta = findViewById(R.id.Barra) ?: return
+        txtBarra = findViewById(R.id.Barra) ?: return
+        txtMeta = findViewById(R.id.TxtMeta)
+        txtAhorro = findViewById(R.id.TxtAhorro)
+        txtGastos = findViewById(R.id.TxtGastos)
         val mAuth = FirebaseAuth.getInstance()
         val currentUser = mAuth.currentUser
         db = FirebaseFirestore.getInstance()
@@ -64,9 +70,15 @@ class DashBoard : AppCompatActivity() {
         if (userEmail != null) {
             db.collection("Users").document(currentUser.uid).get().addOnSuccessListener {
                 val userNameString = it.get("Name") as String?
-                val formattedName = txtMeta.text.toString() +" " + userNameString
-                txtMeta.text = formattedName
+                val formattedName = txtBarra.text.toString() +" " + userNameString
+                txtBarra.text = formattedName
+                val meta = it.getLong("Meta")?.toString() ?: ""
+                val ahorro = it.getLong("Ahorro")?.toString() ?: ""
+                val gastos = it.getLong("Gastos")?.toString() ?: ""
 
+                txtMeta.text = meta
+                txtAhorro.text = ahorro
+                txtGastos.text = gastos
             }
         }
     }
