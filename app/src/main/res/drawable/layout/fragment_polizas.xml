@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".Polizas"
+    tools:layout_editor_absoluteX="-8dp"
+    tools:layout_editor_absoluteY="-13dp">
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabMenos"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
+        android:layout_width="55dp"
+        android:layout_height="61dp"
+        android:layout_marginBottom="116dp"
+        android:clickable="true"
+        android:src="@drawable/baseline_remove_24"
+        app:backgroundTint="#fffff2"
+        app:fabCustomSize="56dp"
+        app:fabSize="mini"
+        app:fab_size="mini"
+        app:fab_title="Agregar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:maxImageSize="40dp"
+        app:tint="@color/buttonColor" />
+
+    <Button
+        android:id="@+id/btnGuardarPoliza"
+        android:layout_width="120dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="35dp"
+        android:text="Guardar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnLimpiarPoliza"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.89" />
+
+    <Button
+        android:id="@+id/btnLimpiarPoliza"
+        android:layout_width="120dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="35dp"
+        android:text="Limpiar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnGuardarPoliza"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.888" />
+
+    <EditText
+        android:id="@+id/txtCargo3"
+        android:layout_width="88dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="35dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/txtAbono3"
+        app:layout_constraintStart_toEndOf="@+id/txtCuenta3"
+        app:layout_constraintTop_toBottomOf="@+id/txtCargo2" />
+
+    <EditText
+        android:id="@+id/txtCargo5"
+        android:layout_width="88dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="35dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/txtAbono5"
+        app:layout_constraintStart_toEndOf="@+id/txtCuenta5"
+        app:layout_constraintTop_toBottomOf="@+id/txtCargo4" />
+
+    <EditText
+        android:id="@+id/txtCargo4"
+        android:layout_width="88dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="35dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/txtAbono4"
+        app:layout_constraintStart_toEndOf="@+id/txtCuenta4"
+        app:layout_constraintTop_toBottomOf="@+id/txtCargo3" />
+
+    <EditText
+        android:id="@+id/TxtCuenta2"
+        android:layout_width="88dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="35dp"
+        android:ems="10"
+        android:inputType="numberSigned"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TxtCuenta1" />
+
+    <EditText
+        android:id="@+id/txtCuenta4"
+        android:layout_width="88dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="35dp"
+        android:ems="10"
+        android:inputType="numberSigned"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCuenta3" />
+
+    <EditText
+        android:id="@+id/txtCuenta5"
+        android:layout_width="88dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="35dp"
+        android:ems="10"
+        android:inputType="numberSigned"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCuenta4" />
+
+    <EditText
+        android:id="@+id/txtCuenta3"
+        android:layout_width="88dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="35dp"
+        android:ems="10"
+        android:inputType="numberSigned"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TxtCuenta2" />
+
+    <EditText
+        android:id="@+id/txtCargo2"
+        android:layout_width="88dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="35dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/txtAbono2"
+        app:layout_constraintStart_toEndOf="@+id/TxtCuenta2"
+        app:layout_constraintTop_toBottomOf="@+id/txtCargo1" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="88dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="116dp"
+        android:gravity="center"
+        android:text="Cuenta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="175dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="Poliza"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/TxtCuenta1"
+        android:layout_width="88dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="35dp"
+        android:ems="10"
+        android:inputType="numberSigned"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="87dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="116dp"
+        android:layout_marginEnd="36dp"
+        android:gravity="center"
+        android:text="Cargo"
+        app:layout_constraintEnd_toStartOf="@+id/textView14"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView13"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="84dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="116dp"
+        android:layout_marginEnd="40dp"
+        android:gravity="center"
+        android:text="Abono"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txtCargo1"
+        android:layout_width="88dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="35dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/txtAbono1"
+        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintStart_toEndOf="@+id/TxtCuenta1"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <EditText
+        android:id="@+id/txtAbono1"
+        android:layout_width="88dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <EditText
+        android:id="@+id/txtAbono4"
+        android:layout_width="88dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAbono3" />
+
+    <EditText
+        android:id="@+id/txtAbono2"
+        android:layout_width="88dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAbono1" />
+
+    <EditText
+        android:id="@+id/txtAbono3"
+        android:layout_width="88dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAbono2" />
+
+    <EditText
+        android:id="@+id/txtAbono5"
+        android:layout_width="88dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAbono4" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabMas"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
+        android:layout_width="55dp"
+        android:layout_height="61dp"
+        android:layout_marginBottom="116dp"
+        android:clickable="true"
+        android:src="@drawable/baseline_add_24"
+        app:backgroundTint="#fffff2"
+        app:fabCustomSize="56dp"
+        app:fabSize="mini"
+        app:fab_size="mini"
+        app:fab_title="Agregar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
+        app:maxImageSize="40dp"
+        app:tint="@color/buttonColor" />
+
+    <Button
+        android:id="@+id/btnConsultaGeneralPolizas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Consulta general"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
