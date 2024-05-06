@@ -31,7 +31,7 @@
         android:layout_height="30dp"
         android:text=""
         android:textColor="@color/color_white"
-        android:textSize="16sp"
+        android:textSize="21sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +46,7 @@
         android:layout_height="30dp"
         android:text=""
         android:textColor="@color/color_white"
-        android:textSize="16sp"
+        android:textSize="21sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +61,7 @@
         android:layout_height="30dp"
         android:text=""
         android:textColor="@color/color_white"
-        android:textSize="16sp"
+        android:textSize="21sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -146,14 +146,22 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_Transacciones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="mini"
+            app:fab_colorNormal="#FFF"
+            app:fab_icon="@drawable/baseline_collections_bookmark_24"
+            app:fab_title="Transacciones" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_modificar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fabSize="mini"
             app:fab_colorNormal="#FFF"
-            app:fab_title="Modificar Meta"
             app:fab_icon="@drawable/baseline_create_24"
-            />
+            app:fab_title="Modificar Meta" />
 
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -162,9 +170,8 @@
             android:layout_height="wrap_content"
             app:fabSize="mini"
             app:fab_colorNormal="#FFF"
-            app:fab_title="Agregar Tarjeta"
             app:fab_icon="@drawable/baseline_add_card_24"
-            />
+            app:fab_title="Agregar Tarjeta" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_Agregar"
@@ -172,9 +179,8 @@
             android:layout_height="wrap_content"
             app:fabSize="mini"
             app:fab_colorNormal="#FFF"
-            app:fab_title="Agregar Transaccion"
             app:fab_icon="@drawable/baseline_add_circle_outline_24"
-            />
+            app:fab_title="Agregar Transaccion" />
 
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>

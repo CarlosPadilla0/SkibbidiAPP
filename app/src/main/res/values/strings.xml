@@ -15,4 +15,6 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_dash_board2">DashBoard2</string>
     <string name="title_activity_agregar_transaccion">AgregarTransaccion</string>
+    <string name="title_activity_modificar_meta">ModificarMeta</string>
+    <string name="title_activity_lista_transacciones">listaTransacciones</string>
 </resources>

@@ -8,14 +8,24 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/logo"
+        android:label="ExactaBank"
+        android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Padilla"
         tools:targetApi="31">
         <activity
-            android:name=".AgregarTransaccion"
+            android:name=".listaTransacciones"
+            android:exported="false"
+            android:label="@string/title_activity_lista_transacciones"
+            android:theme="@style/Theme.Padilla" />
+        <activity
+            android:name=".ModificarMeta"
+            android:exported="false"
+            android:label="@string/title_activity_modificar_meta"
+            android:theme="@style/Theme.Padilla" />
+        <activity
+            android:name=".Agregartransaccion"
             android:exported="false"
             android:label="@string/title_activity_agregar_transaccion"
             android:theme="@style/Theme.Padilla" />

@@ -24,6 +24,7 @@ class DashBoard : ComponentActivity(),OnClickListener {
     private lateinit var fabTarjeta: FloatingActionButton
     private lateinit var fabMenu: FloatingActionsMenu
     private lateinit var  container: View
+    private lateinit var fabTransacciones: FloatingActionButton
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +67,8 @@ class DashBoard : ComponentActivity(),OnClickListener {
         fabMenu.setOnClickListener(this)
         container= findViewById(android.R.id.content)
         container.setOnClickListener(this)
+        fabTransacciones = findViewById(R.id.fab_Transacciones)
+        fabTransacciones.setOnClickListener(this)
         loadData()
     }
 
@@ -75,24 +78,26 @@ class DashBoard : ComponentActivity(),OnClickListener {
         db = FirebaseFirestore.getInstance()
         val userEmail = currentUser?.email
         if (userEmail != null) {
-            db.collection("Users").document(currentUser.uid).get().addOnSuccessListener {
-                val userNameString = it.get("Name") as String?
-                val formattedName = "Bienvenido " + userNameString
-                txtBarra.text = formattedName
-                val meta = it.getLong("Meta")?.toString() ?: ""
-                val ahorro = it.getLong("Ahorro")?.toString() ?: ""
-                val gastos = it.getLong("Gastos")?.toString() ?: ""
+            db.collection("Users").document(currentUser.uid).get()
+                .addOnSuccessListener { documentSnapshot ->
+                    val userNameString = documentSnapshot.getString("Name")
+                    val formattedName = "Bienvenido " + userNameString
+                    txtBarra.text = formattedName
+                    val metaValue = documentSnapshot.getString("Meta")
+                        val meta = metaValue
+                        val ahorro = documentSnapshot.getString("Ahorro")
+                        val gastos = documentSnapshot.getString("Gastos")
+                        txtMeta.text = meta
+                        txtAhorro.text = ahorro
+                        txtGastos.text = gastos
 
-                txtMeta.text = meta
-                txtAhorro.text = ahorro
-                txtGastos.text = gastos
-            }
+                }
         }
     }
 
     private fun showAlert(msg: String) {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
+        builder.setTitle("Aviso")
         builder.setMessage(msg)
         builder.setPositiveButton("Aceptar", null)
         val dialog: AlertDialog = builder.create()
@@ -104,19 +109,24 @@ class DashBoard : ComponentActivity(),OnClickListener {
             fabMenu.collapse()
         }
         if (v == fabAgregar) {
-            val intentAgregar = Intent(this, AgregarTransaccion::class.java)
+            val intentAgregar = Intent(this, Agregartransaccion::class.java)
             startActivity(intentAgregar)
             return
         }
-        if (v == fabTarjeta) {
-//            val intentBorrar = Intent(this, BorrarCuenta::class.java)
-//            startActivity(intentBorrar)
-//            return
+        if (v == fabModificarMeta) {
+           val intentModificarMeta = Intent(this, ModificarMeta::class.java)
+            startActivity(intentModificarMeta)
+            return
         }
-        if (v == fabModificarMeta){
+        if (v == fabTarjeta){
 
 
         }
+        if(v== fabTransacciones){
+            val intentModificar = Intent(this,listaTransacciones::class.java)
+            startActivity(intentModificar)
+        }
+
 
     }
 

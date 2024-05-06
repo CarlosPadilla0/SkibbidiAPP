@@ -86,12 +86,7 @@ class RegistroUsuario : AppCompatActivity(), View.OnClickListener {
             msgToast.setText("Registro exitoso")
             msgToast.show()
 
-            txtNombre.text.clear()
-            txtContraseña.text.clear()
-            txtCorreo.text.clear()
-            txtConfContraseña.text.clear()
-            radioHombre.clearFocus()
-            radioMujer.clearFocus()
+        limpiar()
         }
 
 
@@ -102,8 +97,7 @@ class RegistroUsuario : AppCompatActivity(), View.OnClickListener {
         val correo = txtCorreo.text.toString().trim { it <= ' ' }
         val contraseña = txtContraseña.text.toString().trim { it <= ' ' }
         val confContraseña = txtConfContraseña.text.toString().trim { it <= ' ' }
-
-        return nombre.isNotEmpty() && correo.isNotEmpty() && contraseña.isNotEmpty() && confContraseña.isNotEmpty()
+        return nombre.isNotEmpty() && correo.isNotEmpty() && contraseña.isNotEmpty() && confContraseña.isNotEmpty() && (radioHombre.isChecked || radioMujer.isChecked)
     }
 
     private fun validate2(): Boolean {
@@ -130,9 +124,9 @@ class RegistroUsuario : AppCompatActivity(), View.OnClickListener {
                         db.collection("Users").document(currentUser.uid).set(
                             hashMapOf(
                                 "Email" to userEmail,
-                                "Ahorro" to 0,
-                                "Meta" to 0,
-                                "Gastos" to 0,
+                                "Ahorro" to "0",
+                                "Meta" to "0",
+                                "Gastos" to "0",
                                 "Name" to userName,
                                 "Sexo" to if (radioHombre.isChecked) "Hombre" else "Mujer"
                             )
@@ -152,6 +146,14 @@ class RegistroUsuario : AppCompatActivity(), View.OnClickListener {
         builder.setPositiveButton("Aceptar", null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
+    }
+    private fun limpiar() {
+        txtNombre.text.clear()
+        txtContraseña.text.clear()
+        txtCorreo.text.clear()
+        txtConfContraseña.text.clear()
+        radioHombre.isChecked = false
+        radioMujer.isChecked = false
     }
 
 }

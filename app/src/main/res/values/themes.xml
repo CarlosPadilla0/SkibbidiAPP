@@ -11,4 +11,11 @@
         <item name="android:background">@drawable/bg_label</item>
         <item name="android:textColor">#FFF</item>
     </style>
+
+    <style name="EstiloBoton">
+        <item name="android:background">"#7579F1"</item>
+        <item name="android:textColor">@color/black</item>
+        <!-- Otros atributos de estilo que desees aplicar -->
+    </style>
+
 </resources>

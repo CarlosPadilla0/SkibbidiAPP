@@ -1,43 +1,24 @@
 package com.example.padilla
 
 import android.app.DatePickerDialog
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Button
-import android.widget.DatePicker
 import android.widget.EditText
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.DatePickerDialog
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.padilla.ui.theme.PadillaTheme
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.Format
 import java.text.SimpleDateFormat
-import java.time.LocalTime
-import java.time.Month
-import java.time.MonthDay
-import java.time.Year
-import java.time.ZonedDateTime
 import java.util.Calendar
 import java.util.Locale
 import java.util.UUID
-import java.util.logging.SimpleFormatter
 
-class AgregarTransaccion : ComponentActivity(),OnClickListener {
+class Agregartransaccion : ComponentActivity(),OnClickListener {
     private lateinit var btnFecha: Button
     private lateinit var btnLimpiar: Button
     private lateinit var btnGuardar: Button
@@ -45,6 +26,8 @@ class AgregarTransaccion : ComponentActivity(),OnClickListener {
     private lateinit var txtMontoTransaccion: EditText
     private lateinit var txtPersonaTransaccion: EditText
     private lateinit var txtNotaTransaccion: EditText
+    private lateinit var radioIngreso: RadioButton
+    private lateinit var radioEgreso: RadioButton
     private var year: Int = 0
     private var month: Int = 0
     private var day: Int = 0
@@ -90,7 +73,10 @@ class AgregarTransaccion : ComponentActivity(),OnClickListener {
         txtMontoTransaccion= findViewById(R.id.montoTransaccion)
         txtNotaTransaccion= findViewById(R.id.txtNotaTransaccion)
         txtPersonaTransaccion = findViewById(R.id.txtPersonaTransaccion)
-
+        radioIngreso = findViewById(R.id.radioIngreso)
+        radioEgreso = findViewById(R.id.radioEgreso)
+        radioIngreso.setOnClickListener(this)
+        radioEgreso.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -110,7 +96,7 @@ class AgregarTransaccion : ComponentActivity(),OnClickListener {
 
     private fun validar(): Boolean {
     return txtNotaTransaccion.text.isNotEmpty() && txtPersonaTransaccion.text.isNotEmpty() && txtMontoTransaccion.text.isNotEmpty()
-            &&day !=0 &&month !=0 &&year !=0
+            &&day !=0 &&month !=0 &&year !=0 && radioIngreso.isChecked || radioEgreso.isChecked
     }
 
     private fun showAlert(msg: String) {
@@ -122,7 +108,6 @@ class AgregarTransaccion : ComponentActivity(),OnClickListener {
         dialog.show()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun guardar() {
         db = FirebaseFirestore.getInstance()
         val mAuth = FirebaseAuth.getInstance()
@@ -139,7 +124,8 @@ class AgregarTransaccion : ComponentActivity(),OnClickListener {
                     "monto" to monto,
                     "Fecha" to fecha,
                     "Persona" to persona,
-                    "Nota" to nota
+                    "Nota" to nota,
+                    "Tipo" to if (radioIngreso.isChecked) "Ingreso" else "Egreso"
                 )
             )
         }
@@ -153,6 +139,8 @@ class AgregarTransaccion : ComponentActivity(),OnClickListener {
         day = 0
         month = 0
         year = 0
+        radioIngreso.isChecked = false
+        radioEgreso.isChecked = false
     }
 
 }
