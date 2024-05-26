@@ -17,4 +17,5 @@
     <string name="title_activity_agregar_transaccion">AgregarTransaccion</string>
     <string name="title_activity_modificar_meta">ModificarMeta</string>
     <string name="title_activity_lista_transacciones">listaTransacciones</string>
+    <string name="title_activity_agregar_tarjetas">Agregar_tarjetas</string>
 </resources>

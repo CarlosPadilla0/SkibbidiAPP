@@ -31,6 +31,7 @@ class DashBoard : ComponentActivity(),OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dashboard)
         init()
+        actualizarGastos()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -69,13 +70,13 @@ class DashBoard : ComponentActivity(),OnClickListener {
         container.setOnClickListener(this)
         fabTransacciones = findViewById(R.id.fab_Transacciones)
         fabTransacciones.setOnClickListener(this)
+        db = FirebaseFirestore.getInstance()
         loadData()
     }
 
     private fun loadData() {
         val mAuth = FirebaseAuth.getInstance()
         val currentUser = mAuth.currentUser
-        db = FirebaseFirestore.getInstance()
         val userEmail = currentUser?.email
         if (userEmail != null) {
             db.collection("Users").document(currentUser.uid).get()
@@ -119,6 +120,9 @@ class DashBoard : ComponentActivity(),OnClickListener {
             return
         }
         if (v == fabTarjeta){
+            val intentTarjeta = Intent(this, Agregar_tarjetas::class.java)
+            startActivity(intentTarjeta)
+            return
 
 
         }
@@ -129,6 +133,28 @@ class DashBoard : ComponentActivity(),OnClickListener {
 
 
     }
+    private fun actualizarGastos() {
+        val mAuth = FirebaseAuth.getInstance()
+        val currentUser = mAuth.currentUser
+
+            db.collection("Transacciones")
+                .whereEqualTo("Usuario", currentUser?.uid)
+                .whereEqualTo("Tipo", "Egreso")
+                .get()
+                .addOnSuccessListener { result ->
+                    var totalGastos = 0
+                    for (document in result) {
+                        val monto = document.getString("monto")?.toIntOrNull() ?: 0
+                        totalGastos += monto
+                    }
+                    txtGastos.setText(""+ totalGastos)
+                }
+                .addOnFailureListener { e ->
+                    showAlert("Error al obtener los gastos: ${e.message}")
+                }
+
+    }
+
 
 
 }

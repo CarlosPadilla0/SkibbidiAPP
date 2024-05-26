@@ -18,9 +18,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class listaTransacciones : ComponentActivity() {
     private lateinit var db: FirebaseFirestore
-    private lateinit var transactions: ArrayList<Transaccion>
-    private lateinit var recyclerView: RecyclerView
     private lateinit var binding: ListaTransaccionesBinding
+    private lateinit var adapter: AdapterTransacciones
+    private var transaccionesMutableList:MutableList<Transaccion> = transaccionProvider.transaccionesList.toMutableList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ListaTransaccionesBinding.inflate(layoutInflater)
@@ -30,22 +30,57 @@ class listaTransacciones : ComponentActivity() {
     }
 
     private fun init() {
+        db = FirebaseFirestore.getInstance()
         val manager =LinearLayoutManager(this)
         val decoration= DividerItemDecoration(this,manager.orientation)
-        db = FirebaseFirestore.getInstance()
+        adapter = AdapterTransacciones(transaccionesList = transaccionesMutableList,
+            onclickListener = { Transaccion -> onitemSelected(Transaccion) },
+            onClickDelete = {position -> onDeleteItem(position) },)
+
         binding.recyclerViewTransacciones.layoutManager = manager
-        binding.recyclerViewTransacciones.adapter =
-            AdapterTransacciones(transaccionProvider.transaccionesList) { Transaccion ->
-                onitemSelected(
-                    Transaccion
-                )
-            }
-        transactions = arrayListOf()
+        binding.recyclerViewTransacciones.adapter = adapter
         binding.recyclerViewTransacciones.addItemDecoration(decoration)
     }
 
-    fun onitemSelected(Transaccion: Transaccion) {
-        Toast.makeText(this, Transaccion.tipo, Toast.LENGTH_SHORT).show()
+    private fun onitemSelected(Transaccion: Transaccion) {
+        Toast.makeText(this, Transaccion.fecha, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun onDeleteItem(position: Int) {
+        AlertDialog.Builder(this)
+            .setTitle("Eliminar Transacción")
+            .setMessage("¿Estás seguro de que quieres eliminar esta transacción?")
+            .setPositiveButton("Sí") { dialog, which ->
+
+                val transaccion = transaccionesMutableList[position]
+
+                val transaccionRef = db.collection("Transacciones")
+                    .whereEqualTo("Fecha", transaccion.fecha)
+                    .whereEqualTo("monto", transaccion.monto)
+                    .whereEqualTo("Nota", transaccion.nota)
+                    .whereEqualTo("Tipo", transaccion.tipo)
+                    .limit(1)
+
+                transaccionRef.get().addOnSuccessListener { result ->
+                    if (!result.isEmpty) {
+                        val document = result.documents[0]
+                        db.collection("Transacciones").document(document.id).delete()
+                            .addOnSuccessListener {
+                                transaccionesMutableList.removeAt(position)
+                                adapter.notifyItemRemoved(position)
+                            }
+                            .addOnFailureListener { e ->
+                                Log.w(TAG, "Error deleting document", e)
+                            }
+                    }
+                }.addOnFailureListener { e ->
+                    Log.w(TAG, "Error getting documents", e)
+                }
+            }
+            .setNegativeButton("No") { dialog, which ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun getTransaccionData() {
@@ -55,23 +90,23 @@ class listaTransacciones : ComponentActivity() {
         if (currentUser != null) {
             db.collection("Transacciones").whereEqualTo("Usuario", currentUser.uid).get()
                 .addOnSuccessListener { result ->
-                    transactions.clear()
-
+                    transaccionesMutableList.clear()
 
                     for (document in result) {
                         val fecha = document.getString("Fecha") ?: ""
                         val monto = document.getString("monto") ?: ""
                         val nota = document.getString("Nota") ?: ""
                         val tipo = document.getString("Tipo") ?: ""
-                        val transaccion = Transaccion(fecha, monto, nota, tipo, "1234")
-                        transactions.add(transaccion)
-                    }
-                    binding.recyclerViewTransacciones.adapter =
-                        AdapterTransacciones(transactions) { Transaccion ->
-                            onitemSelected(
-                                Transaccion
-                            )
+                        var forma = document.getString("FormaPago") ?: ""
+                        if (forma == "Tarjeta") {
+                            forma+=" "+document.getString("TerminacionTarjeta").toString().substringAfter(" ")
                         }
+
+                        val transaccion = Transaccion(fecha, monto, nota, tipo, forma)
+                        transaccionesMutableList.add(transaccion)
+                    }
+                    binding.recyclerViewTransacciones.adapter = adapter
+                    adapter.notifyDataSetChanged()
 
                 }
         }
@@ -84,5 +119,6 @@ class listaTransacciones : ComponentActivity() {
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
+
 }
 

@@ -15,6 +15,11 @@
         android:theme="@style/Theme.Padilla"
         tools:targetApi="31">
         <activity
+            android:name=".Agregar_tarjetas"
+            android:exported="false"
+            android:label="@string/title_activity_agregar_tarjetas"
+            android:theme="@style/Theme.Padilla" />
+        <activity
             android:name=".listaTransacciones"
             android:exported="false"
             android:label="@string/title_activity_lista_transacciones"

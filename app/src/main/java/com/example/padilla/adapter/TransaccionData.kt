@@ -5,4 +5,5 @@ data class Transaccion(
     var monto: String ?= null,
     var nota: String ?= null,
     var tipo:String ?= null,
-    var tarjeta:String ?= null)
+    var tarjeta:String ?= null,
+    var forma:String ?= null,)

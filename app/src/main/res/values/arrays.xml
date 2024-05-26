@@ -1,0 +1,7 @@
+<resources>
+    <string-array name="providers_array">
+        <item>Visa</item>
+        <item>MasterCard</item>
+    </string-array>
+    <string-array name="array_providers" />
+</resources>
