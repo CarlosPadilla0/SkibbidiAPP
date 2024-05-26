@@ -9,6 +9,8 @@
     android:backgroundTint="#7579F1"
     >
 
+
+
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -45,6 +47,7 @@
                 android:text="Arya"
                 android:textColor="@color/black"
                 android:textSize="20sp"/>
+
 
         </LinearLayout>
 
@@ -113,7 +116,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/txtTipoTransaccion"
+                android:id="@+id/txtTipoTransaccionItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -122,6 +125,53 @@
                 android:textSize="20sp"/>
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tarjeta: "
+                android:textColor="@color/black"
+                android:textSize="26sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txtTarjetaItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="ingreso"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonEliminartransaccion"
+                android:layout_width="180dp"
+                android:layout_height="45dp"
+                android:text="Eliminar"
+                android:src="@drawable/baseline_cancel_24" />
+
+
+        </LinearLayout>
+
+
     </LinearLayout>
+
+
+
+
+
 
 </androidx.cardview.widget.CardView>

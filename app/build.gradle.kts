@@ -40,6 +40,9 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    viewBinding {
+        enable = true
+    }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.13"
     }
