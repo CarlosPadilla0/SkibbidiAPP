@@ -1,5 +1,6 @@
 package com.example.padilla
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
@@ -8,6 +9,7 @@ import android.view.View.OnClickListener
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AlertDialog
+import com.example.padilla.databinding.DashboardBinding
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.getbase.floatingactionbutton.FloatingActionsMenu
 import com.google.firebase.auth.FirebaseAuth
@@ -23,15 +25,28 @@ class DashBoard : ComponentActivity(),OnClickListener {
     private lateinit var fabAgregar: FloatingActionButton
     private lateinit var fabTarjeta: FloatingActionButton
     private lateinit var fabMenu: FloatingActionsMenu
-    private lateinit var  container: View
+    private lateinit var container: View
     private lateinit var fabTransacciones: FloatingActionButton
-
+    private lateinit var binding: DashboardBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.dashboard)
+        binding = DashboardBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         init()
         actualizarGastos()
+        actualizarAhorro()
+        configSwipe()
+    }
+
+    private fun configSwipe() {
+        binding.Swipe.setColorSchemeResources(R.color.Java)
+        binding.Swipe.setOnRefreshListener {
+            binding.Swipe.isRefreshing = false
+            loadData()
+            actualizarGastos()
+            actualizarAhorro()
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -133,6 +148,7 @@ class DashBoard : ComponentActivity(),OnClickListener {
 
 
     }
+    @SuppressLint("SuspiciousIndentation")
     private fun actualizarGastos() {
         val mAuth = FirebaseAuth.getInstance()
         val currentUser = mAuth.currentUser
@@ -147,14 +163,47 @@ class DashBoard : ComponentActivity(),OnClickListener {
                         val monto = document.getString("monto")?.toIntOrNull() ?: 0
                         totalGastos += monto
                     }
-                    txtGastos.setText(""+ totalGastos)
+                    txtGastos.text = totalGastos.toString()
                 }
                 .addOnFailureListener { e ->
                     showAlert("Error al obtener los gastos: ${e.message}")
                 }
 
     }
+    private fun actualizarAhorro() {
+        val mAuth = FirebaseAuth.getInstance()
+        val currentUser = mAuth.currentUser
 
+        db.collection("Transacciones")
+            .whereEqualTo("Usuario", currentUser?.uid)
+            .get()
+            .addOnSuccessListener { result ->
+                var totalIngresos = 0
+                var totalGastos = 0
+                for (document in result) {
+                    val tipo = document.getString("Tipo")
+                    val monto = document.getString("monto")?.toIntOrNull() ?: 0
+                    if (tipo == "Ingreso") {
+                        totalIngresos += monto
+                    } else if (tipo == "Egreso") {
+                        totalGastos += monto
+                    }
+                }
+                val ahorro = totalIngresos - totalGastos
+                txtAhorro.text = ahorro.toString()
 
+                // Actualizar el valor de ahorro en Firebase
+                val userRef = db.collection("Users").document(currentUser!!.uid)
+                userRef.update("Ahorro", ahorro.toString())
+                    .addOnSuccessListener {
+                    }
+                    .addOnFailureListener { e ->
+                        showAlert("Error al actualizar el ahorro: ${e.message}")
+                    }
+            }
+            .addOnFailureListener { e ->
+                showAlert("Error al obtener las transacciones: ${e.message}")
+            }
+    }
 
 }

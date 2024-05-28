@@ -21,7 +21,6 @@ class actividad_login : AppCompatActivity(), View.OnClickListener {
     private lateinit var txtPassword: EditText
     private lateinit var msgToast: Toast
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.enableEdgeToEdge()
@@ -44,33 +43,37 @@ class actividad_login : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-        if (v == btnRegistrarse) {
-            val intent = Intent(this, RegistroUsuario::class.java)
-            startActivity(intent)
-            return
-        }
-        if (v == btnIniciarSesion) {
-            if (validate()) {
-                singIn()
-            } else {
-                showAlert("verifica los datos")
+        when (v.id) {
+            R.id.btnRegistrarseInicio -> {
+                val intent = Intent(this, RegistroUsuario::class.java)
+                startActivity(intent)
+            }
+            R.id.btnIniciarSesionInicio -> {
+                if (validate()) {
+                    signIn()
+                } else {
+                    showAlert("Por favor, verifica los datos.")
+                }
             }
         }
     }
 
     private fun validate(): Boolean {
-        val correo = txtCorreo.text.toString().trim { it <= ' ' }
-        val contraseña = txtPassword.text.toString().trim { it <= ' ' }
+        val correo = txtCorreo.text.toString().trim()
+        val contraseña = txtPassword.text.toString().trim()
 
         val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
         val correoValido = correo.matches(emailPattern.toRegex())
 
-        return contraseña.isNotEmpty() && correo.isNotEmpty() && correoValido
+        return correo.isNotEmpty() && contraseña.isNotEmpty() && correoValido
     }
 
-    private fun singIn() {
+    private fun signIn() {
+        val correo = txtCorreo.text.toString()
+        val contraseña = txtPassword.text.toString()
+
         FirebaseAuth.getInstance()
-            .signInWithEmailAndPassword(txtCorreo.text.toString(), txtPassword.text.toString())
+            .signInWithEmailAndPassword(correo, contraseña)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val intent = Intent(this, DashBoard::class.java)
@@ -79,7 +82,7 @@ class actividad_login : AppCompatActivity(), View.OnClickListener {
                     txtPassword.text.clear()
                     finish()
                 } else {
-                    showAlert("Error al iniciar Sesión, verifica los datos")
+                    showAlert("Error al iniciar sesión. Por favor, verifica los datos.")
                 }
             }
     }
@@ -97,7 +100,7 @@ class actividad_login : AppCompatActivity(), View.OnClickListener {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             val builder = AlertDialog.Builder(this)
             builder.setMessage("¿Desea salir de BBVO?")
-            builder.setPositiveButton("Si") { dialog, which ->
+            builder.setPositiveButton("Sí") { dialog, which ->
                 val intent = Intent(Intent.ACTION_MAIN)
                 intent.addCategory(Intent.CATEGORY_HOME)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -112,5 +115,4 @@ class actividad_login : AppCompatActivity(), View.OnClickListener {
         }
         return super.onKeyDown(keyCode, event)
     }
-
 }

@@ -82,8 +82,7 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
     implementation("com.getbase:floatingactionbutton:1.10.1")
-
-
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
 }
 

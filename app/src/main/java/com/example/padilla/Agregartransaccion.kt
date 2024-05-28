@@ -167,6 +167,11 @@ class Agregartransaccion : ComponentActivity(), View.OnClickListener {
                 "TerminacionTarjeta" to terminacionTarjeta
             )
 
+            if (radioTarjeta.isChecked && tarjetaList.isEmpty()) {
+                showAlert("Para realizar una transacción con tarjeta, primero debes registrar una tarjeta.")
+                return
+            }
+
             db.collection("Transacciones").document(uuid).set(transaccion)
                 .addOnSuccessListener {
                     showAlert("Transaccion Guardada Correctamente")
@@ -176,6 +181,7 @@ class Agregartransaccion : ComponentActivity(), View.OnClickListener {
                 }
         }
     }
+
 
 
     private fun limpiar() {

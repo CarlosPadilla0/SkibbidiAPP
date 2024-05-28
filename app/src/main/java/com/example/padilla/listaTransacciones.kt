@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +28,9 @@ class listaTransacciones : ComponentActivity() {
         setContentView(binding.root)
         init()
         getTransaccionData()
+        filter()
     }
+
 
     private fun init() {
         db = FirebaseFirestore.getInstance()
@@ -41,11 +44,23 @@ class listaTransacciones : ComponentActivity() {
         binding.recyclerViewTransacciones.adapter = adapter
         binding.recyclerViewTransacciones.addItemDecoration(decoration)
     }
-
+    private fun filter() {
+        binding.idSearch.addTextChangedListener { userfilter ->
+            val query = userfilter.toString().lowercase()
+            val filteredList = transaccionesMutableList.filter { transaccion ->
+                transaccion.tipo?.lowercase()?.contains(query) == true ||
+                        transaccion.fecha?.lowercase()?.contains(query) == true ||
+                        transaccion.monto?.lowercase()?.contains(query) == true ||
+                        transaccion.nota?.lowercase()?.contains(query) == true ||
+                        transaccion.forma?.lowercase()?.contains(query) == true ||
+                        transaccion.tarjeta?.lowercase()?.contains(query) == true
+            }
+            adapter.updateTransacciones(filteredList)
+        }
+    }
     private fun onitemSelected(Transaccion: Transaccion) {
         Toast.makeText(this, Transaccion.fecha, Toast.LENGTH_SHORT).show()
     }
-
     private fun onDeleteItem(position: Int) {
         AlertDialog.Builder(this)
             .setTitle("Eliminar Transacción")
@@ -82,7 +97,6 @@ class listaTransacciones : ComponentActivity() {
             }
             .show()
     }
-
     private fun getTransaccionData() {
         val mAuth = FirebaseAuth.getInstance()
         val currentUser = mAuth.currentUser

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.padilla.R
 
-class AdapterTarjetas (private val TarjetasList: List<Tarjetas>,
+class AdapterTarjetas (private var TarjetasList: List<Tarjetas>,
                        private val onclickListener: (Tarjetas) -> Unit,
                        private val onClickDelete:(Int) -> Unit
 ): RecyclerView.Adapter<TarjetasViewHolder>(){
@@ -23,6 +23,11 @@ class AdapterTarjetas (private val TarjetasList: List<Tarjetas>,
     override fun onBindViewHolder(holder: TarjetasViewHolder, position: Int) {
         val item = TarjetasList[position]
         holder.render(item,onclickListener,onClickDelete)
+    }
+
+    fun updateTarjetas(tarjetasList: List<Tarjetas>){
+        this.TarjetasList=tarjetasList
+        notifyDataSetChanged()
     }
 
 

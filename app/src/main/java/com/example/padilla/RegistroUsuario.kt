@@ -72,7 +72,7 @@ class RegistroUsuario : AppCompatActivity(), View.OnClickListener {
         if (v == BtnRegistrar) {
 
             if (!validate()) {
-                msgToast.setText("Faltan campos por seleccionar")
+                msgToast.setText("Faltan campos por llenar")
                 msgToast.show()
                 return
 
@@ -83,13 +83,8 @@ class RegistroUsuario : AppCompatActivity(), View.OnClickListener {
                 return
             }
             registrar()
-            msgToast.setText("Registro exitoso")
-            msgToast.show()
-
         limpiar()
         }
-
-
     }
 
     private fun validate(): Boolean {
@@ -131,12 +126,19 @@ class RegistroUsuario : AppCompatActivity(), View.OnClickListener {
                                 "Sexo" to if (radioHombre.isChecked) "Hombre" else "Mujer"
                             )
                         )
+                        msgToast.setText("Registro exitoso")
+                        msgToast.show()
+                        limpiar()
                     } else {
-                        showAlert("Revisa los datos")
+                        showAlert("Error al registrar. Revisa los datos.")
+
                     }
+                } else {
+                    showAlert("Error al registrar. ${task.exception?.message}")
                 }
             }
     }
+
 
 
     private fun showAlert(msg: String) {

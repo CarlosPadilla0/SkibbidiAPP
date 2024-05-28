@@ -1,189 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:visibility="visible"
-    tools:context=".ui.dashboard.DashboardFragment">
+    android:layout_height="wrap_content"
+    android:id="@+id/Swipe"
+    tools:context=".DashBoard">
 
-    <TextView
-        android:id="@+id/Fondo"
-        android:layout_width="411dp"
-        android:layout_height="147dp"
-        android:background="#3F51B5"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center"
-        android:textColor="@color/color_white"
-        android:textDirection="firstStrong"
-        android:textSize="34sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.135" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
-    <TextView
-        android:id="@+id/TxtMeta"
-        android:layout_width="192dp"
-        android:layout_height="30dp"
-        android:text=""
-        android:textColor="@color/color_white"
-        android:textSize="21sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.972"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Barra"
-        app:layout_constraintVertical_bias="0.176" />
+        <TextView
+            android:id="@+id/Fondo"
+            android:layout_width="411dp"
+            android:layout_height="147dp"
+            android:background="#3F51B5"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:textColor="@color/color_white"
+            android:textDirection="firstStrong"
+            android:textSize="34sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.135" />
 
-    <TextView
-        android:id="@+id/TxtAhorro"
-        android:layout_width="192dp"
-        android:layout_height="30dp"
-        android:text=""
-        android:textColor="@color/color_white"
-        android:textSize="21sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.968"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Barra"
-        app:layout_constraintVertical_bias="0.104" />
+        <TextView
+            android:id="@+id/TxtMeta"
+            android:layout_width="192dp"
+            android:layout_height="30dp"
+            android:text=""
+            android:textColor="@color/color_white"
+            android:textSize="21sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.972"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Barra"
+            app:layout_constraintVertical_bias="0.176" />
 
-    <TextView
-        android:id="@+id/TxtGastos"
-        android:layout_width="192dp"
-        android:layout_height="30dp"
-        android:text=""
-        android:textColor="@color/color_white"
-        android:textSize="21sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.968"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Barra"
-        app:layout_constraintVertical_bias="0.03" />
+        <TextView
+            android:id="@+id/TxtAhorro"
+            android:layout_width="192dp"
+            android:layout_height="30dp"
+            android:text=""
+            android:textColor="@color/color_white"
+            android:textSize="21sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.968"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Barra"
+            app:layout_constraintVertical_bias="0.104" />
 
-    <TextView
-        android:layout_width="178dp"
-        android:layout_height="31dp"
-        android:text="Ahorro Mensual:"
-        android:textColor="@color/color_white"
-        android:textSize="21sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.068"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Barra"
-        app:layout_constraintVertical_bias="0.103" />
+        <TextView
+            android:id="@+id/TxtGastos"
+            android:layout_width="192dp"
+            android:layout_height="30dp"
+            android:text=""
+            android:textColor="@color/color_white"
+            android:textSize="21sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.968"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Barra"
+            app:layout_constraintVertical_bias="0.03" />
 
-    <TextView
-        android:id="@+id/Barra"
-        android:layout_width="0dp"
-        android:layout_height="69dp"
-        android:background="#2C2EA5"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center"
-        android:text="Bienvenido"
-        android:textColor="@color/color_white"
-        android:textDirection="firstStrong"
-        android:textSize="34sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:layout_width="178dp"
+            android:layout_height="31dp"
+            android:text="Ahorro Mensual:"
+            android:textColor="@color/color_white"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.068"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Barra"
+            app:layout_constraintVertical_bias="0.103" />
 
-    <TextView
-        android:layout_width="185dp"
-        android:layout_height="32dp"
-        android:text="Gastos mensuales:"
-        android:textColor="@color/color_white"
-        android:textSize="21sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Barra"
-        app:layout_constraintVertical_bias="0.03" />
+        <TextView
+            android:id="@+id/Barra"
+            android:layout_width="0dp"
+            android:layout_height="69dp"
+            android:background="#2C2EA5"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="Bienvenido"
+            android:textColor="@color/color_white"
+            android:textDirection="firstStrong"
+            android:textSize="34sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:layout_width="167dp"
-        android:layout_height="30dp"
-        android:text="Meta Mensual:"
-        android:textColor="@color/color_white"
-        android:textSize="21sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.065"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Barra"
-        app:layout_constraintVertical_bias="0.176" />
+        <TextView
+            android:layout_width="185dp"
+            android:layout_height="32dp"
+            android:text="Gastos mensuales:"
+            android:textColor="@color/color_white"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.07"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Barra"
+            app:layout_constraintVertical_bias="0.03" />
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/fab_menu"
-        android:layout_width="100dp"
-        android:layout_height="300dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        app:fab_expandDirection="up"
-        app:fab_labelStyle="@style/LabelStyle"
-        app:fab_labelsPosition="left"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        <TextView
+            android:layout_width="167dp"
+            android:layout_height="30dp"
+            android:text="Meta Mensual:"
+            android:textColor="@color/color_white"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.065"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Barra"
+            app:layout_constraintVertical_bias="0.176" />
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_Transacciones"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fabSize="mini"
-            app:fab_colorNormal="#FFF"
-            app:fab_icon="@drawable/baseline_collections_bookmark_24"
-            app:fab_title="Transacciones" />
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/fab_menu"
+            android:layout_width="100dp"
+            android:layout_height="300dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            app:fab_expandDirection="up"
+            app:fab_labelStyle="@style/LabelStyle"
+            app:fab_labelsPosition="left"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent">
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_modificar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fabSize="mini"
-            app:fab_colorNormal="#FFF"
-            app:fab_icon="@drawable/baseline_create_24"
-            app:fab_title="Modificar Meta" />
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_Transacciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fabSize="mini"
+                app:fab_colorNormal="#FFF"
+                app:fab_icon="@drawable/baseline_collections_bookmark_24"
+                app:fab_title="Transacciones" />
 
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_modificar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fabSize="mini"
+                app:fab_colorNormal="#FFF"
+                app:fab_icon="@drawable/baseline_create_24"
+                app:fab_title="Modificar Meta" />
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_Tarjeta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fabSize="mini"
-            app:fab_colorNormal="#FFF"
-            app:fab_icon="@drawable/baseline_add_card_24"
-            app:fab_title="Agregar Tarjeta" />
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_Tarjeta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fabSize="mini"
+                app:fab_colorNormal="#FFF"
+                app:fab_icon="@drawable/baseline_add_card_24"
+                app:fab_title="Agregar Tarjeta" />
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_Agregar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fabSize="mini"
-            app:fab_colorNormal="#FFF"
-            app:fab_icon="@drawable/baseline_add_circle_outline_24"
-            app:fab_title="Agregar Transaccion" />
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_Agregar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fabSize="mini"
+                app:fab_colorNormal="#FFF"
+                app:fab_icon="@drawable/baseline_add_circle_outline_24"
+                app:fab_title="Agregar Transaccion" />
 
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

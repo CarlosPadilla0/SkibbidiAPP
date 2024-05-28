@@ -6,6 +6,7 @@ import android.view.View.OnClickListener
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.padilla.adapter.AdapterTarjetas
@@ -49,6 +50,15 @@ class Agregar_tarjetas : ComponentActivity(), OnClickListener {
         binding.recyclerViewTarjetas.layoutManager = manager
         binding.recyclerViewTarjetas.adapter = adapter
         binding.recyclerViewTarjetas.addItemDecoration(decoration)
+
+        binding.searchCard.addTextChangedListener { userfilter ->
+            val query = userfilter.toString().lowercase()
+            val filteredList = tarjetasMutableList.filter { tarjeta ->
+                tarjeta.terminacion?.lowercase()?.contains(query) == true ||
+                        tarjeta.proveedor?.lowercase()?.contains(query) == true
+            }
+            adapter.updateTarjetas(filteredList)
+        }
     }
 
     private fun onitemSelected(tarjetas: Tarjetas) {
@@ -63,26 +73,32 @@ class Agregar_tarjetas : ComponentActivity(), OnClickListener {
                 val tarjeta = tarjetasMutableList[position]
                 val mAuth = FirebaseAuth.getInstance()
                 val currentUser = mAuth.currentUser
-                val tarjetaRef = db.collection("tarjetas")
-                    .whereEqualTo("uid", currentUser?.uid)
-                    .whereEqualTo("cardEnding", tarjeta.terminacion)
-                    .whereEqualTo("provider", tarjeta.proveedor)
-                    .limit(1)
+                if (currentUser != null) {
+                    val tarjetaRef = db.collection("tarjetas")
+                        .whereEqualTo("uid", currentUser.uid)
+                        .whereEqualTo("cardEnding", tarjeta.terminacion)
+                        .whereEqualTo("provider", tarjeta.proveedor)
+                        .limit(1)
 
-                tarjetaRef.get().addOnSuccessListener { result ->
-                    if (!result.isEmpty) {
-                        val document = result.documents[0]
-                        db.collection("tarjetas").document(document.id).delete()
-                            .addOnSuccessListener {
-                                tarjetasMutableList.removeAt(position)
-                                adapter.notifyItemRemoved(position)
+                    tarjetaRef.get()
+                        .addOnSuccessListener { result ->
+                            if (!result.isEmpty) {
+                                val document = result.documents[0]
+                                db.collection("tarjetas").document(document.id).delete()
+                                    .addOnSuccessListener {
+                                        tarjetasMutableList.removeAt(position)
+                                        adapter.notifyItemRemoved(position)
+                                    }
+                                    .addOnFailureListener { e ->
+                                        showAlert("Error al eliminar la tarjeta: ${e.message}")
+                                    }
                             }
-                            .addOnFailureListener { e ->
-                                Toast.makeText(this, "Error deleting card: ${e.message}", Toast.LENGTH_SHORT).show()
-                            }
-                    }
-                }.addOnFailureListener { e ->
-                    Toast.makeText(this, "Error getting documents: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener { e ->
+                            showAlert("Error al obtener documentos: ${e.message}")
+                        }
+                } else {
+                    showAlert("Usuario no autenticado")
                 }
             }
             .setNegativeButton("No") { dialog, which ->
@@ -130,8 +146,10 @@ class Agregar_tarjetas : ComponentActivity(), OnClickListener {
                     adapter.notifyItemInserted(tarjetasMutableList.size - 1)
                 }
                 .addOnFailureListener { e ->
-                    Toast.makeText(this, "Error adding card: ${e.message}", Toast.LENGTH_SHORT).show()
+                    showAlert("Error al agregar la tarjeta: ${e.message}")
                 }
+        } else {
+            showAlert("Usuario no autenticado")
         }
     }
 
@@ -160,8 +178,10 @@ class Agregar_tarjetas : ComponentActivity(), OnClickListener {
                     adapter.notifyDataSetChanged()
                 }
                 .addOnFailureListener { e ->
-                    Toast.makeText(this, "Error getting documents: ${e.message}", Toast.LENGTH_SHORT).show()
+                    showAlert("Error al obtener las tarjetas: ${e.message}")
                 }
+        } else {
+            showAlert("Usuario no autenticado")
         }
     }
 
