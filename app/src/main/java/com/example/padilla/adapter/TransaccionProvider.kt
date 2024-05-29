@@ -1,6 +1,6 @@
 package com.example.padilla.adapter
 
-class transaccionProvider {
+class TransaccionProvider {
     companion object {
         val transaccionesList = mutableListOf<Transaccion>()
         fun agregarTransaccion(transaccion: Transaccion)  {

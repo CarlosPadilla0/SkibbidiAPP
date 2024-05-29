@@ -1,8 +1,7 @@
-package com.example.padilla
+package com.example.padilla.actividades
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -14,23 +13,25 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.padilla.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class RegistroUsuario : AppCompatActivity(), View.OnClickListener {
     private lateinit var txtNombre: EditText
     private lateinit var txtCorreo: EditText
-    private lateinit var txtContraseña: EditText
-    private lateinit var txtConfContraseña: EditText
+    private lateinit var txtContra: EditText
+    private lateinit var txtConfContra: EditText
     private lateinit var radioHombre: RadioButton
     private lateinit var radioMujer: RadioButton
-    private lateinit var BtnRegistrar: Button
+    private lateinit var btnRegistrar: Button
     private lateinit var msgToast: Toast
     private lateinit var db: FirebaseFirestore
-
-    companion object {
-        private const val TAG = "RegistroUsuario"
-    }
+    private val activityScope = CoroutineScope(Dispatchers.Main)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,21 +48,21 @@ class RegistroUsuario : AppCompatActivity(), View.OnClickListener {
             insets
         }
 
-        Init()
+        init ()
     }
 
-    private fun Init() {
+    private fun init() {
         txtNombre = findViewById(R.id.inputNombreRegistro)
         txtCorreo = findViewById(R.id.inputCorreoRegistro)
-        txtContraseña = findViewById(R.id.inputContraseñaRegistro)
-        txtConfContraseña = findViewById(R.id.inputContraseñaConfirmacionRegistro)
+        txtContra = findViewById(R.id.inputContraseñaRegistro)
+        txtConfContra = findViewById(R.id.inputContraseñaConfirmacionRegistro)
         radioHombre = findViewById(R.id.RadioHombre)
         radioMujer = findViewById(R.id.RadioMujer)
-        BtnRegistrar = findViewById(R.id.btnConfirmarRegistro)
+        btnRegistrar = findViewById(R.id.btnConfirmarRegistro)
 
         radioHombre.setOnClickListener(this)
         radioMujer.setOnClickListener(this)
-        BtnRegistrar.setOnClickListener(this)
+        btnRegistrar.setOnClickListener(this)
 
         msgToast = Toast.makeText(this, "", Toast.LENGTH_LONG)
         db = FirebaseFirestore.getInstance()
@@ -69,7 +70,7 @@ class RegistroUsuario : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
 
-        if (v == BtnRegistrar) {
+        if (v == btnRegistrar) {
 
             if (!validate()) {
                 msgToast.setText("Faltan campos por llenar")
@@ -83,63 +84,65 @@ class RegistroUsuario : AppCompatActivity(), View.OnClickListener {
                 return
             }
             registrar()
-        limpiar()
+
         }
     }
 
     private fun validate(): Boolean {
         val nombre = txtNombre.text.toString().trim { it <= ' ' }
         val correo = txtCorreo.text.toString().trim { it <= ' ' }
-        val contraseña = txtContraseña.text.toString().trim { it <= ' ' }
-        val confContraseña = txtConfContraseña.text.toString().trim { it <= ' ' }
-        return nombre.isNotEmpty() && correo.isNotEmpty() && contraseña.isNotEmpty() && confContraseña.isNotEmpty() && (radioHombre.isChecked || radioMujer.isChecked)
+        val contra = txtContra.text.toString().trim { it <= ' ' }
+        val confContra = txtConfContra.text.toString().trim { it <= ' ' }
+        return nombre.isNotEmpty() && correo.isNotEmpty() && contra.isNotEmpty() && confContra.isNotEmpty() && (radioHombre.isChecked || radioMujer.isChecked)
     }
 
     private fun validate2(): Boolean {
-        val contraseña = txtContraseña.text.toString().trim()
-        val confContraseña = txtConfContraseña.text.toString().trim()
-        return contraseña == confContraseña
+        val contra = txtContra.text.toString().trim()
+        val confContra = txtConfContra.text.toString().trim()
+        return contra == confContra
     }
 
     private fun registrar() {
         val correo = txtCorreo.text.toString()
-        val contraseña = txtConfContraseña.text.toString()
+        val contra = txtConfContra.text.toString()
         val nombre = txtNombre.text.toString()
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(correo, contraseña)
+
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(correo, contra)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d(TAG, "Registro exitoso")
-
                     val mAuth = FirebaseAuth.getInstance()
                     val currentUser = mAuth.currentUser
-                    val userEmail = correo
-                    val userName = nombre
 
                     if (currentUser != null) {
                         db.collection("Users").document(currentUser.uid).set(
                             hashMapOf(
-                                "Email" to userEmail,
+                                "Email" to correo,
                                 "Ahorro" to "0",
                                 "Meta" to "0",
                                 "Gastos" to "0",
-                                "Name" to userName,
+                                "Name" to nombre,
                                 "Sexo" to if (radioHombre.isChecked) "Hombre" else "Mujer"
                             )
-                        )
+                        ).addOnSuccessListener {
+                            activityScope.launch {
+                                delay(2000) // Retraso de 2 segundos
+                                showAlert("Registro exitoso")
+                                finish()
+                            }
+                        }.addOnFailureListener { exception ->
+                            showAlert("Error al registrar en Firestore: ${exception.message}")
+                        }
                         msgToast.setText("Registro exitoso")
                         msgToast.show()
                         limpiar()
                     } else {
                         showAlert("Error al registrar. Revisa los datos.")
-
                     }
                 } else {
                     showAlert("Error al registrar. ${task.exception?.message}")
                 }
             }
     }
-
-
 
     private fun showAlert(msg: String) {
         val builder = AlertDialog.Builder(this)
@@ -151,9 +154,9 @@ class RegistroUsuario : AppCompatActivity(), View.OnClickListener {
     }
     private fun limpiar() {
         txtNombre.text.clear()
-        txtContraseña.text.clear()
+        txtContra.text.clear()
         txtCorreo.text.clear()
-        txtConfContraseña.text.clear()
+        txtConfContra.text.clear()
         radioHombre.isChecked = false
         radioMujer.isChecked = false
     }

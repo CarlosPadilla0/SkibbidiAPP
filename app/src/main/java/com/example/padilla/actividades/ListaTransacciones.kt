@@ -1,4 +1,4 @@
-package com.example.padilla
+package com.example.padilla.actividades
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
@@ -9,19 +9,18 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.padilla.adapter.AdapterTransacciones
 import com.example.padilla.adapter.Transaccion
-import com.example.padilla.adapter.transaccionProvider
+import com.example.padilla.adapter.TransaccionProvider
 import com.example.padilla.databinding.ListaTransaccionesBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class listaTransacciones : ComponentActivity() {
+class ListaTransacciones : ComponentActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var binding: ListaTransaccionesBinding
     private lateinit var adapter: AdapterTransacciones
-    private var transaccionesMutableList:MutableList<Transaccion> = transaccionProvider.transaccionesList.toMutableList()
+    private var transaccionesMutableList:MutableList<Transaccion> = TransaccionProvider.transaccionesList.toMutableList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ListaTransaccionesBinding.inflate(layoutInflater)
@@ -37,7 +36,7 @@ class listaTransacciones : ComponentActivity() {
         val manager =LinearLayoutManager(this)
         val decoration= DividerItemDecoration(this,manager.orientation)
         adapter = AdapterTransacciones(transaccionesList = transaccionesMutableList,
-            onclickListener = { Transaccion -> onitemSelected(Transaccion) },
+            onclickListener = { transaccion -> onitemSelected(transaccion) },
             onClickDelete = {position -> onDeleteItem(position) },)
 
         binding.recyclerViewTransacciones.layoutManager = manager
@@ -58,14 +57,14 @@ class listaTransacciones : ComponentActivity() {
             adapter.updateTransacciones(filteredList)
         }
     }
-    private fun onitemSelected(Transaccion: Transaccion) {
-        Toast.makeText(this, Transaccion.fecha, Toast.LENGTH_SHORT).show()
+    private fun onitemSelected(transaccion: Transaccion) {
+        Toast.makeText(this, transaccion.fecha, Toast.LENGTH_SHORT).show()
     }
     private fun onDeleteItem(position: Int) {
         AlertDialog.Builder(this)
             .setTitle("Eliminar Transacción")
             .setMessage("¿Estás seguro de que quieres eliminar esta transacción?")
-            .setPositiveButton("Sí") { dialog, which ->
+            .setPositiveButton("Sí") { _, which ->
 
                 val transaccion = transaccionesMutableList[position]
 

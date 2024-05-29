@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.padilla.databinding.TransaccionItemBinding
 
 
-class transaccionesViewHolder(view: View): RecyclerView.ViewHolder(view){
+class TransaccionesViewHolder(view: View): RecyclerView.ViewHolder(view){
 
     val binding = TransaccionItemBinding.bind(view)
     fun render(

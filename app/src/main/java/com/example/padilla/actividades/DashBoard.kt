@@ -1,4 +1,4 @@
-package com.example.padilla
+package com.example.padilla.actividades
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.view.View.OnClickListener
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AlertDialog
+import com.example.padilla.R
 import com.example.padilla.databinding.DashboardBinding
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.getbase.floatingactionbutton.FloatingActionsMenu
@@ -53,9 +54,9 @@ class DashBoard : ComponentActivity(),OnClickListener {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             val builder = AlertDialog.Builder(this)
             builder.setMessage("¿Desea cerrar sesión?")
-            builder.setPositiveButton("Sí") { dialog, which ->
+            builder.setPositiveButton("Sí") { _, which ->
                 FirebaseAuth.getInstance().signOut()
-                val intent = Intent(this, actividad_login::class.java)
+                val intent = Intent(this, Login::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -81,7 +82,7 @@ class DashBoard : ComponentActivity(),OnClickListener {
         fabTarjeta.setOnClickListener(this)
         fabModificarMeta.setOnClickListener(this)
         fabMenu.setOnClickListener(this)
-        container= findViewById(android.R.id.content)
+        container = findViewById(android.R.id.content)
         container.setOnClickListener(this)
         fabTransacciones = findViewById(R.id.fab_Transacciones)
         fabTransacciones.setOnClickListener(this)
@@ -97,15 +98,14 @@ class DashBoard : ComponentActivity(),OnClickListener {
             db.collection("Users").document(currentUser.uid).get()
                 .addOnSuccessListener { documentSnapshot ->
                     val userNameString = documentSnapshot.getString("Name")
-                    val formattedName = "Bienvenido " + userNameString
+                    val formattedName = "Bienvenido $userNameString"
                     txtBarra.text = formattedName
                     val metaValue = documentSnapshot.getString("Meta")
-                        val meta = metaValue
-                        val ahorro = documentSnapshot.getString("Ahorro")
-                        val gastos = documentSnapshot.getString("Gastos")
-                        txtMeta.text = meta
-                        txtAhorro.text = ahorro
-                        txtGastos.text = gastos
+                    val ahorro = documentSnapshot.getString("Ahorro")
+                    val gastos = documentSnapshot.getString("Gastos")
+                    txtMeta.text = metaValue
+                    txtAhorro.text = ahorro
+                    txtGastos.text = gastos
 
                 }
         }
@@ -121,7 +121,7 @@ class DashBoard : ComponentActivity(),OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        if(v==container){
+        if (v == container) {
             fabMenu.collapse()
         }
         if (v == fabAgregar) {
@@ -130,46 +130,48 @@ class DashBoard : ComponentActivity(),OnClickListener {
             return
         }
         if (v == fabModificarMeta) {
-           val intentModificarMeta = Intent(this, ModificarMeta::class.java)
+            val intentModificarMeta = Intent(this, ModificarMeta::class.java)
             startActivity(intentModificarMeta)
             return
         }
-        if (v == fabTarjeta){
-            val intentTarjeta = Intent(this, Agregar_tarjetas::class.java)
+        if (v == fabTarjeta) {
+            val intentTarjeta = Intent(this, AgregarTarjetas::class.java)
             startActivity(intentTarjeta)
             return
 
 
         }
-        if(v== fabTransacciones){
-            val intentModificar = Intent(this,listaTransacciones::class.java)
+        if (v == fabTransacciones) {
+            val intentModificar = Intent(this, ListaTransacciones::class.java)
             startActivity(intentModificar)
         }
 
 
     }
+
     @SuppressLint("SuspiciousIndentation")
     private fun actualizarGastos() {
         val mAuth = FirebaseAuth.getInstance()
         val currentUser = mAuth.currentUser
 
-            db.collection("Transacciones")
-                .whereEqualTo("Usuario", currentUser?.uid)
-                .whereEqualTo("Tipo", "Egreso")
-                .get()
-                .addOnSuccessListener { result ->
-                    var totalGastos = 0
-                    for (document in result) {
-                        val monto = document.getString("monto")?.toIntOrNull() ?: 0
-                        totalGastos += monto
-                    }
-                    txtGastos.text = totalGastos.toString()
+        db.collection("Transacciones")
+            .whereEqualTo("Usuario", currentUser?.uid)
+            .whereEqualTo("Tipo", "Egreso")
+            .get()
+            .addOnSuccessListener { result ->
+                var totalGastos = 0
+                for (document in result) {
+                    val monto = document.getString("monto")?.toIntOrNull() ?: 0
+                    totalGastos += monto
                 }
-                .addOnFailureListener { e ->
-                    showAlert("Error al obtener los gastos: ${e.message}")
-                }
+                txtGastos.text = totalGastos.toString()
+            }
+            .addOnFailureListener { e ->
+                showAlert("Error al obtener los gastos: ${e.message}")
+            }
 
     }
+
     private fun actualizarAhorro() {
         val mAuth = FirebaseAuth.getInstance()
         val currentUser = mAuth.currentUser
@@ -190,19 +192,19 @@ class DashBoard : ComponentActivity(),OnClickListener {
                     }
                 }
                 val ahorro = totalIngresos - totalGastos
-                txtAhorro.text = ahorro.toString()
+                if (ahorro < 0) {
+                    txtAhorro.text = "0"
+                } else {
+                    txtAhorro.text = ahorro.toString()
+                }
 
-                // Actualizar el valor de ahorro en Firebase
                 val userRef = db.collection("Users").document(currentUser!!.uid)
-                userRef.update("Ahorro", ahorro.toString())
+                userRef.update("Ahorro", if (ahorro < 0) "0" else ahorro.toString())
                     .addOnSuccessListener {
                     }
                     .addOnFailureListener { e ->
                         showAlert("Error al actualizar el ahorro: ${e.message}")
                     }
-            }
-            .addOnFailureListener { e ->
-                showAlert("Error al obtener las transacciones: ${e.message}")
             }
     }
 

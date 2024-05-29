@@ -1,4 +1,4 @@
-package com.example.padilla
+package com.example.padilla.actividades
 
 import android.os.Bundle
 import android.view.View
@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AlertDialog
+import com.example.padilla.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -39,7 +40,7 @@ class ModificarMeta : ComponentActivity(),OnClickListener{
                 val userMeta = document.getString("Meta")
                 if (userMeta != null)
                     metaActual.text = userMeta
-                metaActual.setText(userMeta)
+                metaActual.text = userMeta
             }
         }
     }

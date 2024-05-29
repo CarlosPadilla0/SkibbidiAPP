@@ -15,40 +15,40 @@
         android:theme="@style/Theme.Padilla"
         tools:targetApi="31">
         <activity
-            android:name=".Agregar_tarjetas"
+            android:name=".actividades.AgregarTarjetas"
             android:exported="false"
             android:label="@string/title_activity_agregar_tarjetas"
             android:theme="@style/Theme.Padilla"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".listaTransacciones"
+            android:name=".actividades.ListaTransacciones"
             android:exported="false"
             android:label="@string/title_activity_lista_transacciones"
             android:theme="@style/Theme.Padilla" />
         <activity
-            android:name=".ModificarMeta"
+            android:name=".actividades.ModificarMeta"
             android:exported="false"
             android:label="@string/title_activity_modificar_meta"
             android:theme="@style/Theme.Padilla" />
         <activity
-            android:name=".Agregartransaccion"
+            android:name=".actividades.Agregartransaccion"
             android:exported="false"
             android:label="@string/title_activity_agregar_transaccion"
             android:theme="@style/Theme.Padilla" />
         <activity
-            android:name=".DashBoard"
+            android:name=".actividades.DashBoard"
             android:exported="false"
             android:label="@string/title_activity_dash_board2"
             android:theme="@style/Theme.Padilla" />
 
         <activity
-            android:name=".RegistroUsuario"
+            android:name=".actividades.RegistroUsuario"
             android:exported="false"
             android:theme="@style/Theme.Padilla" />
 
 
         <activity
-            android:name=".actividad_login"
+            android:name=".actividades.Login"
             android:exported="true"
             android:theme="@style/Theme.Padilla">
             <intent-filter>

@@ -1,4 +1,4 @@
-package com.example.padilla
+package com.example.padilla.actividades
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,9 +12,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.padilla.R
 import com.google.firebase.auth.FirebaseAuth
 
-class actividad_login : AppCompatActivity(), View.OnClickListener {
+class Login : AppCompatActivity(), View.OnClickListener {
     private lateinit var btnIniciarSesion: Button
     private lateinit var btnRegistrarse: Button
     private lateinit var txtCorreo: EditText
@@ -60,20 +61,20 @@ class actividad_login : AppCompatActivity(), View.OnClickListener {
 
     private fun validate(): Boolean {
         val correo = txtCorreo.text.toString().trim()
-        val contraseña = txtPassword.text.toString().trim()
+        val contra = txtPassword.text.toString().trim()
 
         val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
         val correoValido = correo.matches(emailPattern.toRegex())
 
-        return correo.isNotEmpty() && contraseña.isNotEmpty() && correoValido
+        return correo.isNotEmpty() && contra.isNotEmpty() && correoValido
     }
 
     private fun signIn() {
         val correo = txtCorreo.text.toString()
-        val contraseña = txtPassword.text.toString()
+        val contra = txtPassword.text.toString()
 
         FirebaseAuth.getInstance()
-            .signInWithEmailAndPassword(correo, contraseña)
+            .signInWithEmailAndPassword(correo, contra)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val intent = Intent(this, DashBoard::class.java)
@@ -100,7 +101,7 @@ class actividad_login : AppCompatActivity(), View.OnClickListener {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             val builder = AlertDialog.Builder(this)
             builder.setMessage("¿Desea salir de BBVO?")
-            builder.setPositiveButton("Sí") { dialog, which ->
+            builder.setPositiveButton("Sí") { _, which ->
                 val intent = Intent(Intent.ACTION_MAIN)
                 intent.addCategory(Intent.CATEGORY_HOME)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK

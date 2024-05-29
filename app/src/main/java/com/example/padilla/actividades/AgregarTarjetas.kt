@@ -1,4 +1,4 @@
-package com.example.padilla
+package com.example.padilla.actividades
 
 import android.os.Bundle
 import android.view.View
@@ -9,9 +9,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.padilla.R
 import com.example.padilla.adapter.AdapterTarjetas
 import com.example.padilla.adapter.Tarjetas
-import com.example.padilla.adapter.tarjetasProvider
+import com.example.padilla.adapter.TarjetasProvider
 import com.example.padilla.databinding.DialogAddCardBinding
 import com.example.padilla.databinding.ListaTarjetasBinding
 import com.getbase.floatingactionbutton.FloatingActionButton
@@ -19,13 +20,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.UUID
 
-class Agregar_tarjetas : ComponentActivity(), OnClickListener {
+class AgregarTarjetas : ComponentActivity(), OnClickListener {
     private lateinit var fab: FloatingActionButton
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ListaTarjetasBinding
     private lateinit var adapter: AdapterTarjetas
-    private var tarjetasMutableList: MutableList<Tarjetas> = tarjetasProvider.tarjetasList.toMutableList()
+    private var tarjetasMutableList: MutableList<Tarjetas> = TarjetasProvider.tarjetasList.toMutableList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +70,7 @@ class Agregar_tarjetas : ComponentActivity(), OnClickListener {
         AlertDialog.Builder(this)
             .setTitle("Eliminar Tarjeta")
             .setMessage("¿Estás seguro de que quieres eliminar esta tarjeta?")
-            .setPositiveButton("Sí") { dialog, which ->
+            .setPositiveButton("Sí") { _, which ->
                 val tarjeta = tarjetasMutableList[position]
                 val mAuth = FirebaseAuth.getInstance()
                 val currentUser = mAuth.currentUser
@@ -118,12 +119,12 @@ class Agregar_tarjetas : ComponentActivity(), OnClickListener {
         val binding = DialogAddCardBinding.inflate(layoutInflater)
         builder.setView(binding.root)
             .setTitle("Agregar Tarjeta")
-            .setPositiveButton("Aceptar") { dialog, id ->
+            .setPositiveButton("Aceptar") { _, _ ->
                 val cardEnding = binding.editTextCardEnding.text.toString()
                 val provider = binding.spinnerProvider.selectedItem.toString()
                 addCardToDatabase(cardEnding, provider)
             }
-            .setNegativeButton("Cancelar") { dialog, id ->
+            .setNegativeButton("Cancelar") { dialog, _ ->
                 dialog.dismiss()
             }
         builder.create().show()
@@ -169,7 +170,6 @@ class Agregar_tarjetas : ComponentActivity(), OnClickListener {
                 .addOnSuccessListener { result ->
                     tarjetasMutableList.clear()
                     for (document in result) {
-                        val uid = document.getString("uid") ?: ""
                         val cardEnding = document.getString("cardEnding") ?: ""
                         val provider = document.getString("provider") ?: ""
                         val tarjeta = Tarjetas(cardEnding, provider)

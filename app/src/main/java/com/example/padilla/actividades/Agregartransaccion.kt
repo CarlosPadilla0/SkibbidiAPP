@@ -1,4 +1,4 @@
-package com.example.padilla
+package com.example.padilla.actividades
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -6,8 +6,13 @@ import android.view.View
 import android.widget.*
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AlertDialog
+import com.example.padilla.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.text.Format
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,6 +38,8 @@ class Agregartransaccion : ComponentActivity(), View.OnClickListener {
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private lateinit var txtTerminacion:TextView
+    private val activityScope = CoroutineScope(Dispatchers.Main)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -175,6 +182,10 @@ class Agregartransaccion : ComponentActivity(), View.OnClickListener {
             db.collection("Transacciones").document(uuid).set(transaccion)
                 .addOnSuccessListener {
                     showAlert("Transaccion Guardada Correctamente")
+                    activityScope.launch {
+                        delay(2000) // Retraso de 2 segundos
+                        finish()
+                    }
                 }
                 .addOnFailureListener { e ->
                     showAlert("Error al guardar la transaccion: ${e.message}")

@@ -9,7 +9,11 @@
         android:id="@+id/editTextCardEnding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Terminación de la tarjeta" />
+        android:inputType="number"
+        android:hint="Terminación de la tarjeta"
+        android:maxLength="4" />
+
+
 
     <Spinner
         android:id="@+id/spinnerProvider"
