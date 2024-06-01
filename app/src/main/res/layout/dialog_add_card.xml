@@ -13,8 +13,6 @@
         android:hint="Terminación de la tarjeta"
         android:maxLength="4" />
 
-
-
     <Spinner
         android:id="@+id/spinnerProvider"
         android:layout_width="match_parent"

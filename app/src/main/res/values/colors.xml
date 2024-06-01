@@ -15,4 +15,10 @@
     <color name="Python">#66BB6A</color>
     <color name="CPP">#EF5350</color>
     <color name="Java">#29B6F6</color>
+    <color name="color_primary">#2C2EA5</color>
+    <color name="color_black">#000000</color>
+    <color name="color_gray">#CCCCCC</color>
+    <color name="color_dark_gray">#333333</color>
+    <color name="background_color">#F5F5F5</color>
+
 </resources>

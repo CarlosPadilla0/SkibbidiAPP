@@ -45,18 +45,14 @@
             android:name=".actividades.RegistroUsuario"
             android:exported="false"
             android:theme="@style/Theme.Padilla" />
-
-
         <activity
             android:name=".actividades.Login"
             android:exported="true"
             android:theme="@style/Theme.Padilla">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

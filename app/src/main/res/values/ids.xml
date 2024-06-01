@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="Barra" type="id" />
+    <item name="TxtAhorro" type="id" />
+    <item name="TxtGastos" type="id" />
+    <item name="TxtMeta" type="id" />
+    <item name="Fondo" type="id" />
+    <item name="Swipe" type="id" />
+</resources>

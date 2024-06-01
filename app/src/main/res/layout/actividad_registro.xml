@@ -5,116 +5,148 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#F5F5F5"
     tools:context=".actividades.RegistroUsuario">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="415dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="15dp"
-        android:background="?attr/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#2C2EA5"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.894"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Registro Usuario"
+        app:titleTextColor="@color/color_white"
+        android:elevation="4dp" />
 
     <LinearLayout
-        android:layout_width="317dp"
-        android:layout_height="655dp"
-        android:layout_marginStart="29dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="30dp"
         android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#FFFFFF"
+        android:layout_gravity="center"
+        android:paddingVertical="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/txtNombre"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="Nombre"
-            android:textAlignment="viewStart"
-            android:textSize="20sp" />
+            android:textColor="#333333"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/inputNombreRegistro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text" />
+            android:background="@drawable/edittext_background"
+            android:padding="10dp"
+            android:hint="Introduce tu nombre"
+            android:textColor="#333333" />
 
         <TextView
             android:id="@+id/txtCorreoRegistro"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:text="Correo"
-            android:textSize="20sp" />
+            android:textColor="#333333"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/inputCorreoRegistro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textEmailAddress|textEmailSubject" />
+            android:background="@drawable/edittext_background"
+            android:padding="10dp"
+            android:hint="Introduce tu correo"
+            android:inputType="textEmailAddress"
+            android:textColor="#333333" />
 
         <TextView
             android:id="@+id/txtContraseñaRegistro"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:text="Contraseña"
-            android:textSize="20sp" />
+            android:textColor="#333333"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/inputContraseñaRegistro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword" />
+            android:background="@drawable/edittext_background"
+            android:padding="10dp"
+            android:hint="Introduce tu contraseña"
+            android:inputType="textPassword"
+            android:textColor="#333333" />
 
         <TextView
             android:id="@+id/txtConfirmarContraseña"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:text="Confirmar contraseña"
-            android:textSize="20sp" />
+            android:textColor="#333333"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/inputContraseñaConfirmacionRegistro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword" />
-
-
+            android:background="@drawable/edittext_background"
+            android:padding="10dp"
+            android:hint="Confirma tu contraseña"
+            android:inputType="textPassword"
+            android:textColor="#333333" />
 
         <RadioGroup
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
             <RadioButton
                 android:id="@+id/RadioHombre"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Hombre" />
+                android:layout_weight="1"
+                android:text="Hombre"
+                android:textColor="#333333" />
 
             <RadioButton
                 android:id="@+id/RadioMujer"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Mujer" />
+                android:layout_weight="1"
+                android:text="Mujer"
+                android:textColor="#333333" />
         </RadioGroup>
 
         <Button
             android:id="@+id/btnConfirmarRegistro"
-            android:layout_width="273dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:insetLeft="65dp"
-            android:text="Confirmar" />
+            android:layout_marginTop="24dp"
+            android:text="Confirmar"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_background" />
 
     </LinearLayout>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
